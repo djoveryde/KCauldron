@@ -53,7 +53,7 @@ ext.buildInfoCached = null;
 def buildInfo(String key) {
     if (!buildInfoCached) {
         if (project.hasProperty('officialBuild')) {
-            buildInfoCached = new JsonSlurper().parse(new URL("https://prok.pw/version/${group}/${name}"))
+            buildInfoCached = new JsonSlurper().parse(new URL("https://prok.pw/version/pw.prok/KCauldron"))
         } else {
             buildInfoCached = [
                     nextBuildNumber: 'UNOFFICIAL.' + gitInfo('hash'),
@@ -88,9 +88,9 @@ def gitInfo(String key) {
 }
 
 ext.mcVersion = "1.7.10"
-ext.forgeVersion = "1420"
-ext.revision = buildInfo('nextBuildNumber')
-version = "${mcVersion}-${forgeVersion}.${revision}"
+ext.forgeVersion = "1291"
+ext.revision = buildInfo('buildNumber')
+version = "backport-${mcVersion}-${forgeVersion}.${revision}"
 println "Updated KCauldron version: ${version}"
 
 launch4j {
@@ -106,7 +106,7 @@ tasks.packageUniversal {
             'Implementation-Vendor' : 'Prototik',
             'Implementation-Title'  : 'KCauldron',
             'Implementation-Version': project.version,
-            'Forge-Version'         : '10.13.3.1420',
+            'Forge-Version'         : '10.13.2.1291',
             'Specification-Vendor'  : 'Bukkit Team',
             'Specification-Title'   : 'Bukkit',
             'Specification-Version' : '1.7.10-R0.1-SNAPSHOT'
@@ -115,7 +115,7 @@ tasks.packageUniversal {
 
 tasks.createChangelog.onlyIf { false }
 
-task packageChangelog(type: CreateChangelog) {
+/*task packageChangelog(type: CreateChangelog) {
     onlyIf { project.hasProperty('officialBuild') }
     classifier = 'changelog'
     extension = 'txt'
@@ -123,12 +123,12 @@ task packageChangelog(type: CreateChangelog) {
     hash = gitInfo('hash')
     message = gitInfo('message')
     version = project.version
-}
+}*/
 
 task signJars(type: Sign, dependsOn: [packageUniversal, packageInstaller]) {
     sign packageInstaller
     sign packageUniversal
-    sign packageChangelog
+    //sign packageChangelog
 }
 
 task preparePublication(dependsOn: signJars) {}
@@ -137,11 +137,11 @@ def getSignatureFiles = {
     def allFiles = project.tasks.signJars.signatureFiles.collect { it }
     def signedServer = allFiles.find { it.name.contains('-server') }
     def signedInstaller = allFiles.find { it.name.contains('-installer') }
-    def signedChangelog = allFiles.find { it.name.contains('-changelog') }
+    //def signedChangelog = allFiles.find { it.name.contains('-changelog') }
     return [
             [archive: signedServer, classifier: 'server', extension: 'jar.asc'],
             [archive: signedInstaller, classifier: 'installer', extension: 'jar.asc'],
-            [archive: signedChangelog, classifier: 'changelog', extension: 'txt.asc']
+            //[archive: signedChangelog, classifier: 'changelog', extension: 'txt.asc']
     ]
 }
 
@@ -167,7 +167,7 @@ publishing {
             }
             artifact packageUniversal
             artifact packageInstaller
-            artifact packageChangelog
+            //artifact packageChangelog
         }
     }
 }

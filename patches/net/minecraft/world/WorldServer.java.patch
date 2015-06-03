@@ -493,7 +493,7 @@
          return arraylist;
      }
  
-@@ -733,7 +954,28 @@
+@@ -732,7 +953,28 @@
              int i = 0;
              int j = this.provider.getAverageGroundLevel();
              int k = 0;
@@ -522,7 +522,7 @@
              if (chunkposition != null)
              {
                  i = chunkposition.chunkPosX;
-@@ -876,6 +1118,20 @@
+@@ -875,6 +1117,20 @@
  
      public boolean addWeatherEffect(Entity p_72942_1_)
      {
@@ -543,7 +543,7 @@
          if (super.addWeatherEffect(p_72942_1_))
          {
              this.mcServer.getConfigurationManager().sendToAllNear(p_72942_1_.posX, p_72942_1_.posY, p_72942_1_.posZ, 512.0D, this.provider.dimensionId, new S2CPacketSpawnGlobalEntity(p_72942_1_));
-@@ -894,13 +1150,23 @@
+@@ -893,11 +1149,22 @@
  
      public Explosion newExplosion(Entity p_72885_1_, double p_72885_2_, double p_72885_4_, double p_72885_6_, float p_72885_8_, boolean p_72885_9_, boolean p_72885_10_)
      {
@@ -559,16 +559,14 @@
          Explosion explosion = new Explosion(this, p_72885_1_, p_72885_2_, p_72885_4_, p_72885_6_, p_72885_8_);
          explosion.isFlaming = p_72885_9_;
          explosion.isSmoking = p_72885_10_;
-         if (net.minecraftforge.event.ForgeEventFactory.onExplosionStart(this, explosion)) return explosion;
          explosion.doExplosionA();
          explosion.doExplosionB(false);
--
 +        */
 +        // CraftBukkit end - TODO: Check if explosions are still properly implemented
+ 
          if (!p_72885_10_)
          {
-             explosion.affectedBlockPositions.clear();
-@@ -977,7 +1243,7 @@
+@@ -975,7 +1242,7 @@
      {
          boolean flag = this.isRaining();
          super.updateWeather();
@@ -577,7 +575,7 @@
          if (this.prevRainingStrength != this.rainingStrength)
          {
              this.mcServer.getConfigurationManager().sendPacketToAllPlayersInDimension(new S2BPacketChangeGameState(7, this.rainingStrength), this.provider.dimensionId);
-@@ -988,10 +1254,6 @@
+@@ -986,10 +1253,6 @@
              this.mcServer.getConfigurationManager().sendPacketToAllPlayersInDimension(new S2BPacketChangeGameState(8, this.thunderingStrength), this.provider.dimensionId);
          }
  
@@ -588,7 +586,7 @@
          if (flag != this.isRaining())
          {
              if (flag)
-@@ -1006,6 +1268,33 @@
+@@ -1004,6 +1267,33 @@
              this.mcServer.getConfigurationManager().sendPacketToAllPlayersInDimension(new S2BPacketChangeGameState(7, this.rainingStrength), this.provider.dimensionId);
              this.mcServer.getConfigurationManager().sendPacketToAllPlayersInDimension(new S2BPacketChangeGameState(8, this.thunderingStrength), this.provider.dimensionId);
          }
@@ -622,7 +620,7 @@
      }
  
      protected int func_152379_p()
-@@ -1069,4 +1358,51 @@
+@@ -1067,4 +1357,51 @@
                  this();
              }
          }

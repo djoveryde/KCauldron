@@ -606,7 +606,7 @@
          return entityplayermp1;
      }
  
-@@ -479,34 +807,112 @@
+@@ -479,34 +807,113 @@
          transferPlayerToDimension(p_72356_1_, p_72356_2_, mcServer.worldServerForDimension(p_72356_2_).getDefaultTeleporter());
      }
  
@@ -617,7 +617,7 @@
 -        WorldServer worldserver = this.mcServer.worldServerForDimension(p_72356_1_.dimension);
 -        p_72356_1_.dimension = p_72356_2_;
 -        WorldServer worldserver1 = this.mcServer.worldServerForDimension(p_72356_1_.dimension);
--        p_72356_1_.playerNetServerHandler.sendPacket(new S07PacketRespawn(p_72356_1_.dimension, worldserver1.difficultySetting, worldserver1.getWorldInfo().getTerrainType(), p_72356_1_.theItemInWorldManager.getGameType())); // Forge: Use new dimensions information
+-        p_72356_1_.playerNetServerHandler.sendPacket(new S07PacketRespawn(p_72356_1_.dimension, p_72356_1_.worldObj.difficultySetting, p_72356_1_.worldObj.getWorldInfo().getTerrainType(), p_72356_1_.theItemInWorldManager.getGameType()));
 -        worldserver.removePlayerEntityDangerously(p_72356_1_);
 -        p_72356_1_.isDead = false;
 -        this.transferEntityToWorld(p_72356_1_, j, worldserver, worldserver1, teleporter);
@@ -662,7 +662,7 @@
 +            teleporter = ((CraftWorld) exit.getWorld()).getHandle().getDefaultTeleporter();
 +            if (teleporter instanceof TravelAgent)
 +            {
-+                agent = (TravelAgent) teleporter;
++               agent = (TravelAgent) teleporter;
 +            }
 +        }
 +        else
@@ -715,6 +715,7 @@
 +        this.syncPlayerInventory(par1EntityPlayerMP);
 +        Iterator iterator = par1EntityPlayerMP.getActivePotionEffects().iterator();
 +
++
          while (iterator.hasNext())
          {
 -            PotionEffect potioneffect = (PotionEffect)iterator.next();
@@ -738,7 +739,7 @@
      }
  
      public void transferEntityToWorld(Entity p_82448_1_, int p_82448_2_, WorldServer p_82448_3_, WorldServer p_82448_4_, Teleporter teleporter)
-@@ -592,6 +998,109 @@
+@@ -592,6 +999,109 @@
          p_82448_1_.setWorld(p_82448_4_);
      }
  
@@ -848,7 +849,7 @@
      public void sendPlayerInfoToAllPlayers()
      {
          if (++this.playerPingIndex > 600)
-@@ -599,11 +1108,13 @@
+@@ -599,11 +1109,13 @@
              this.playerPingIndex = 0;
          }
  
@@ -862,7 +863,7 @@
      }
  
      public void sendPacketToAllPlayers(Packet p_148540_1_)
-@@ -864,13 +1375,24 @@
+@@ -864,13 +1376,24 @@
          for (int j = 0; j < this.playerEntityList.size(); ++j)
          {
              EntityPlayerMP entityplayermp = (EntityPlayerMP)this.playerEntityList.get(j);
@@ -889,7 +890,7 @@
                  if (d4 * d4 + d5 * d5 + d6 * d6 < p_148543_8_ * p_148543_8_)
                  {
                      entityplayermp.playerNetServerHandler.sendPacket(p_148543_11_);
-@@ -928,13 +1450,16 @@
+@@ -928,13 +1451,16 @@
              p_72354_1_.playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(1, 0.0F));
              p_72354_1_.playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(7, p_72354_2_.getRainStrength(1.0F)));
              p_72354_1_.playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(8, p_72354_2_.getWeightedThunderStrength(1.0F)));
@@ -907,7 +908,7 @@
          p_72385_1_.playerNetServerHandler.sendPacket(new S09PacketHeldItemChange(p_72385_1_.inventory.currentItem));
      }
  
-@@ -948,9 +1473,17 @@
+@@ -948,9 +1474,17 @@
          return this.maxPlayers;
      }
  
@@ -926,7 +927,7 @@
      }
  
      public void setWhiteListEnabled(boolean p_72371_1_)
-@@ -1019,12 +1552,30 @@
+@@ -1019,12 +1553,30 @@
  
      public void removeAllPlayers()
      {

@@ -692,7 +692,7 @@
 -            else
 +            else if (s.isEmpty())
              {
--                ChatComponentTranslation chatcomponenttranslation1 = new ChatComponentTranslation("chat.type.text", new Object[] {this.playerEntity.func_145748_c_(), ForgeHooks.newChatWithLinks(s)}); // Fixes chat links
+-                ChatComponentTranslation chatcomponenttranslation1 = new ChatComponentTranslation("chat.type.text", new Object[] {this.playerEntity.func_145748_c_(), s});
 -                chatcomponenttranslation1 = ForgeHooks.onServerChatEvent(this, s, chatcomponenttranslation1);
 -                if (chatcomponenttranslation1 == null) return;
 -                this.serverController.getConfigurationManager().sendChatMsgImpl(chatcomponenttranslation1, false);
@@ -1005,12 +1005,12 @@
 +        }
 +
          this.playerEntity.func_143004_u();
- 
++        
 +        if (p_147357_1_.func_149513_d() == 1 || p_147357_1_.func_149513_d() == 2)
 +        {
 +            PlayerToggleSneakEvent event = new PlayerToggleSneakEvent(this.getPlayerB(), p_147357_1_.func_149513_d() == 1);
 +            this.server.getPluginManager().callEvent(event);
-+
+ 
 +            if (event.isCancelled())
 +            {
 +                return;

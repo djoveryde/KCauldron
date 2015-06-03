@@ -88,7 +88,7 @@ def gitInfo(String key) {
 }
 
 ext.mcVersion = "1.7.10"
-ext.forgeVersion = "1291"
+ext.forgeVersion = "1240"
 ext.revision = buildInfo('buildNumber')
 version = "backport-${mcVersion}-${forgeVersion}.${revision}"
 println "Updated KCauldron version: ${version}"
@@ -107,7 +107,7 @@ tasks.packageUniversal {
             'Implementation-Vendor' : 'Prototik',
             'Implementation-Title'  : project.name,
             'Implementation-Version': project.version,
-            'Forge-Version'         : '10.13.2.1291',
+            'Forge-Version'         : '10.13.2.1240',
             'Specification-Vendor'  : 'Bukkit Team',
             'Specification-Title'   : 'Bukkit',
             'Specification-Version' : '1.7.10-R0.1-SNAPSHOT'

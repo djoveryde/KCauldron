@@ -142,7 +142,7 @@ task packageBundle(type: Zip, dependsOn: installBundle) {
     })
 }
 
-task signJars(type: Sign, dependsOn: [packageUniversal, packageInstaller, packageChangelog, packageBundle]) {
+task signJars(type: Sign, dependsOn: [packageUniversal, packageInstaller, packageBundle]) {
     sign packageInstaller
     sign packageUniversal
     //sign packageChangelog
@@ -160,7 +160,7 @@ def getSignatureFiles = {
     return [
             [archive: signedServer, classifier: 'server', extension: 'jar.asc'],
             [archive: signedInstaller, classifier: 'installer', extension: 'jar.asc'],
-            [archive: signedChangelog, classifier: 'changelog', extension: 'txt.asc'],
+            //[archive: signedChangelog, classifier: 'changelog', extension: 'txt.asc'],
             [archive: signedBundle, classifier: 'bundle', extension: 'jar.asc']
     ]
 }

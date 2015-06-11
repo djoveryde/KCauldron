@@ -91,7 +91,7 @@ def gitInfo(String key) {
 ext.mcVersion = "1.7.10"
 ext.forgeVersion = "1388"
 ext.revision = buildInfo('buildNumber')
-version = "backport-${mcVersion}-${forgeVersion}.${revision}"
+version = "${mcVersion}-${forgeVersion}.${revision}"
 println "Updated KCauldron version: ${version}"
 
 launch4j {

@@ -277,7 +277,7 @@ publishing {
 }
 
 tasks.buildPackages {
-    dependsOn packageUniversal, packageChangelog, packageBundle, jar
+    dependsOn packageUniversal, packageBundle, jar
 }
 
 tasks.generateProjectCauldron << {

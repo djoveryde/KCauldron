@@ -334,16 +334,15 @@ public class CauldronHooks
                 writer.name("players").value(world.playerEntities.size());
                 writer.name("loadedChunks").value(world.theChunkProviderServer.loadedChunkHashMap_KC.size());
                 writer.name("activeChunks").value(world.activeChunkSet.size());
-                writer.name("entities").value(world.loadedEntityList.size());
-                writer.name("tiles").value(world.loadedTileEntityList.size());
+                writer.name("entities").value(world.loadedEntityList_KC.size());
+                writer.name("tiles").value(world.loadedTileEntityList_KC.size());
 
                 TObjectIntHashMap<ChunkCoordIntPair> chunkEntityCounts = new TObjectIntHashMap<ChunkCoordIntPair>();
                 TObjectIntHashMap<Class> classEntityCounts = new TObjectIntHashMap<Class>();
                 TObjectIntHashMap<Entity> entityCollisionCounts = new TObjectIntHashMap<Entity>();
                 Set<ChunkCoordinates> collidingCoords = new HashSet<ChunkCoordinates>();
-                for (int i = 0; i < world.loadedEntityList.size(); i++)
+                for (Entity entity : world.loadedEntityList_KC)
                 {
-                    Entity entity = (Entity) world.loadedEntityList.get(i);
                     ChunkCoordIntPair chunkCoords = new ChunkCoordIntPair((int) entity.posX >> 4, (int) entity.posZ >> 4);
                     chunkEntityCounts.adjustOrPutValue(chunkCoords, 1, 1);
                     classEntityCounts.adjustOrPutValue(entity.getClass(), 1, 1);
@@ -366,9 +365,8 @@ public class CauldronHooks
                 TObjectIntHashMap<ChunkCoordIntPair> chunkTileCounts = new TObjectIntHashMap<ChunkCoordIntPair>();
                 TObjectIntHashMap<Class> classTileCounts = new TObjectIntHashMap<Class>();
                 writer.name("tiles").beginArray();
-                for (int i = 0; i < world.loadedTileEntityList.size(); i++)
+                for (TileEntity tile : world.loadedTileEntityList_KC)
                 {
-                    TileEntity tile = (TileEntity) world.loadedTileEntityList.get(i);
                     if (logAll)
                     {
                         writer.beginObject();

@@ -86,15 +86,14 @@ public class KCauldronUpdater implements Runnable, IVersionCheckCallback {
     public KCauldronUpdater(CommandSender sender, String version) {
         mSender = sender;
         mVersion = version;
-        mThread = new Thread(this);
-        mThread.setName("KCauldron updater");
+        mThread = new Thread(KCauldron.sKCauldronThreadGroup, this, "KCauldron updated");
         mThread.setPriority(Thread.MIN_PRIORITY);
         mThread.start();
     }
 
     @Override
     public void run() {
-        if (!MinecraftServer.kcauldronConfig.updatecheckerQuite.getValue()) {
+        if (!MinecraftServer.kcauldronConfig.updatecheckerQuiet.getValue()) {
             mSender.sendMessage(ChatColor.DARK_PURPLE
                     + "Retrieving latest KBootstrap version...");
         }
@@ -108,10 +107,10 @@ public class KCauldronUpdater implements Runnable, IVersionCheckCallback {
 
     @Override
     public void newVersion(String kbootstrapVersion) {
-        boolean quite = MinecraftServer.kcauldronConfig.updatecheckerQuite
+        boolean quiet = MinecraftServer.kcauldronConfig.updatecheckerQuiet
                 .getValue();
         try {
-            if (!quite) {
+            if (!quiet) {
                 mSender.sendMessage(ChatColor.DARK_PURPLE
                         + "Downloading KBootstrap " + kbootstrapVersion + "...");
             }
@@ -120,7 +119,7 @@ public class KCauldronUpdater implements Runnable, IVersionCheckCallback {
             download(
                     "https://api.prok.pw/repo/blob/pw.prok/KBootstrap/latest/app",
                     kbootstrap);
-            if (!quite) {
+            if (!quiet) {
                 mSender.sendMessage(ChatColor.DARK_PURPLE
                         + "Installing KCauldron " + mVersion
                         + " via KBootstrap " + kbootstrapVersion + "...");
@@ -159,7 +158,7 @@ public class KCauldronUpdater implements Runnable, IVersionCheckCallback {
                         + "Failed to install KCauldron " + mVersion);
             }
         } catch (Exception e) {
-            if (!quite) {
+            if (!quiet) {
                 e.printStackTrace();
             }
             if (mSender != null) {

@@ -49,7 +49,7 @@
          float f = this.explosionSize;
          HashSet hashset = new HashSet();
          int i;
-@@ -135,7 +151,15 @@
+@@ -134,7 +150,15 @@
                      d7 /= d9;
                      double d10 = (double)this.worldObj.getBlockDensity(vec3, entity.boundingBox);
                      double d11 = (1.0D - d4) * d10;
@@ -66,7 +66,7 @@
                      double d8 = EnchantmentProtection.func_92092_a(entity, d11);
                      entity.motionX += d5 * d8;
                      entity.motionY += d6 * d8;
-@@ -174,6 +198,39 @@
+@@ -173,6 +197,39 @@
  
          if (this.isSmoking)
          {
@@ -106,7 +106,7 @@
              iterator = this.affectedBlockPositions.iterator();
  
              while (iterator.hasNext())
-@@ -209,7 +266,8 @@
+@@ -208,7 +265,8 @@
                  {
                      if (block.canDropFromExplosion(this))
                      {
@@ -116,7 +116,7 @@
                      }
  
                      block.onBlockExploded(this.worldObj, i, j, k, this);
-@@ -232,7 +290,12 @@
+@@ -231,7 +289,12 @@
  
                  if (block.getMaterial() == Material.air && block1.func_149730_j() && this.explosionRNG.nextInt(3) == 0)
                  {

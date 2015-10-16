@@ -263,6 +263,7 @@ public final class CraftServer implements Server {
         waterAnimalSpawn = configuration.getInt("spawn-limits.water-animals");
         ambientSpawn = configuration.getInt("spawn-limits.ambient");
         console.autosavePeriod = configuration.getInt("ticks-per.autosave");
+        console.invalidateWorldSaver();
         warningState = WarningState.value(configuration.getString("settings.deprecated-verbose"));
         loadIcon();
         chunkGCEnabled = configuration.getBoolean("chunk-gc.enabled"); // Cauldron
@@ -670,7 +671,7 @@ public final class CraftServer implements Server {
 
     @Override
     public List<World> getWorlds() {
-        return new ArrayList<World>(worlds.values());
+        return ImmutableList.copyOf(worlds.values());
     }
 
     public DedicatedPlayerList getHandle() {
@@ -764,6 +765,7 @@ public final class CraftServer implements Server {
         warningState = WarningState.value(configuration.getString("settings.deprecated-verbose"));
         printSaveWarning = false;
         console.autosavePeriod = configuration.getInt("ticks-per.autosave");
+        console.invalidateWorldSaver();
         chunkGCPeriod = configuration.getInt("chunk-gc.period-in-ticks");
         chunkGCLoadThresh = configuration.getInt("chunk-gc.load-threshold");
         loadIcon();
@@ -1150,7 +1152,7 @@ public final class CraftServer implements Server {
 
     @Override
     public Map<String, String[]> getCommandAliases() {
-        ConfigurationSection section = configuration.getConfigurationSection("aliases");
+        ConfigurationSection section = commandsConfiguration.getConfigurationSection("aliases");
         Map<String, String[]> result = new LinkedHashMap<String, String[]>();
 
         if (section != null) {
@@ -1307,7 +1309,7 @@ public final class CraftServer implements Server {
             // Spigot start
             GameProfile profile = null;
             if (MinecraftServer.getServer().isServerInOnlineMode() || org.spigotmc.SpigotConfig.bungee) {
-            	profile = MinecraftServer.getServer().func_152358_ax().func_152655_a(name);
+                profile = MinecraftServer.getServer().func_152358_ax().func_152655_a(name);
             }
             if (profile == null) {
                 // Make an OfflinePlayer using an offline mode UUID since the name has no profile

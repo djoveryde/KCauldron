@@ -1,8 +1,8 @@
 --- ../src-base/minecraft/net/minecraft/tileentity/TileEntityBrewingStand.java
 +++ ../src-work/minecraft/net/minecraft/tileentity/TileEntityBrewingStand.java
-@@ -13,17 +13,55 @@
- import net.minecraft.nbt.NBTTagList;
- import net.minecraft.potion.PotionHelper;
+@@ -15,17 +15,55 @@
+ import net.minecraftforge.common.MinecraftForge;
+ import net.minecraftforge.event.brewing.PotionBrewedEvent;
  
 +// CraftBukkit start
 +import net.minecraft.server.MinecraftServer;
@@ -58,7 +58,7 @@
      public String getInventoryName()
      {
          return this.hasCustomInventoryName() ? this.field_145942_n : "container.brewing";
-@@ -46,12 +84,17 @@
+@@ -48,12 +86,17 @@
  
      public void updateEntity()
      {
@@ -78,7 +78,7 @@
                  this.brewPotions();
                  this.markDirty();
              }
-@@ -141,7 +184,19 @@
+@@ -142,7 +185,19 @@
          if (this.canBrew())
          {
              ItemStack itemstack = this.brewingItemStacks[3];
@@ -98,7 +98,7 @@
              for (int i = 0; i < 3; ++i)
              {
                  if (this.brewingItemStacks[i] != null && this.brewingItemStacks[i].getItem() instanceof ItemPotion)
-@@ -280,7 +335,7 @@
+@@ -281,7 +336,7 @@
  
      public int getInventoryStackLimit()
      {

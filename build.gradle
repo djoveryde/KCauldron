@@ -142,7 +142,7 @@ dependencies {
     libraries 'mysql:mysql-connector-java:5.1.14'
     libraries 'javax.persistence:persistence-api:1.0.2'
     libraries 'net.minecraft:server:1.7.10'
-    libraries 'pw.prok:KImagine:0.1.12@jar'
+    libraries 'pw.prok:KImagine:0.2.0@jar'
     libraries 'org.apache.httpcomponents:httpclient:4.4.1'
 }
 
@@ -173,6 +173,7 @@ def generateManifest(boolean legacy = false) {
             'KCauldron-Channel'     : project.name,
             'KCauldron-Version'     : project.version,
             'KCauldron-Legacy'      : legacy,
+            'KCauldron-Official'    : project.hasProperty('officialBuild'),
             'Implementation-Vendor' : 'Prototik',
             'Implementation-Title'  : project.name,
             'Implementation-Version': project.version,

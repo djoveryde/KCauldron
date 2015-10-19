@@ -608,7 +608,7 @@
          }
  
 +        // CraftBukkit start
-+        if (p_147359_1_ == null)
++        if (p_147359_1_ == null || this.processedDisconnect) // KCauldron
 +        {
 +            return;
 +        }
